@@ -10,8 +10,19 @@ function readableError(err: unknown): string {
   if (/failed to fetch|networkerror|load failed/i.test(raw)) {
     return "Couldn't reach the server. Check your connection, or that the Supabase URL and key are right."
   }
-  return raw || 'Could not send the link. Try again in a moment.'
+  if (/invalid login credentials/i.test(raw)) {
+    return "That email and password don't match an account. If you haven't made one yet, create an account instead."
+  }
+  if (/already registered|already been registered/i.test(raw)) {
+    return 'There is already an account with that email — sign in instead.'
+  }
+  if (/password should be at least/i.test(raw)) {
+    return 'Password needs to be at least 6 characters.'
+  }
+  return raw || 'Something went wrong. Try again in a moment.'
 }
+
+type Mode = 'signin' | 'signup'
 
 interface AccountSheetProps {
   open: boolean
@@ -19,28 +30,51 @@ interface AccountSheetProps {
   sync: SyncState
   email: string | null
   signedIn: boolean
-  onSignIn: (email: string) => Promise<void>
+  onSignIn: (email: string, password: string) => Promise<void>
+  onSignUp: (email: string, password: string) => Promise<{ needsConfirmation: boolean }>
   onSignOut: () => Promise<void>
 }
 
-export function AccountSheet({ open, onClose, sync, email, signedIn, onSignIn, onSignOut }: AccountSheetProps) {
+export function AccountSheet({
+  open,
+  onClose,
+  sync,
+  email,
+  signedIn,
+  onSignIn,
+  onSignUp,
+  onSignOut,
+}: AccountSheetProps) {
+  const [mode, setMode] = useState<Mode>('signin')
   const [address, setAddress] = useState('')
-  const [sending, setSending] = useState(false)
-  const [sent, setSent] = useState(false)
+  const [password, setPassword] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [confirmSent, setConfirmSent] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const submit = async (e: FormEvent) => {
     e.preventDefault()
     setError(null)
-    setSending(true)
+    setBusy(true)
     try {
-      await onSignIn(address.trim())
-      setSent(true)
+      if (mode === 'signup') {
+        const { needsConfirmation } = await onSignUp(address.trim(), password)
+        if (needsConfirmation) setConfirmSent(true)
+      } else {
+        await onSignIn(address.trim(), password)
+      }
+      setPassword('')
     } catch (err) {
       setError(readableError(err))
     } finally {
-      setSending(false)
+      setBusy(false)
     }
+  }
+
+  const switchMode = (next: Mode) => {
+    setMode(next)
+    setError(null)
+    setConfirmSent(false)
   }
 
   return (
@@ -74,43 +108,78 @@ export function AccountSheet({ open, onClose, sync, email, signedIn, onSignIn, o
               </button>
             </div>
           </>
-        ) : sent ? (
+        ) : confirmSent ? (
           <>
-            <h2 className="detail-title">Check your inbox</h2>
+            <h2 className="detail-title">Confirm your email</h2>
             <p className="account-body">
-              A sign-in link is on its way to <strong>{address}</strong>. Open it on this device
-              and your shelf will start syncing. The link works once and expires in an hour.
+              Your project has email confirmation switched on, so there's a link waiting at{' '}
+              <strong>{address}</strong>. Open it, then come back and sign in.
             </p>
-            <button className="link-btn" onClick={() => setSent(false)}>
-              Use a different address
+            <p className="account-body subtle">
+              To skip this step in future, turn off <em>Confirm email</em> in Supabase under
+              Authentication → Sign In / Providers → Email.
+            </p>
+            <button className="link-btn" onClick={() => switchMode('signin')}>
+              Back to sign in
             </button>
           </>
         ) : (
           <>
-            <h2 className="detail-title">Sync across devices</h2>
+            <h2 className="detail-title">
+              {mode === 'signin' ? 'Sign in to sync' : 'Create an account'}
+            </h2>
             <p className="account-body">
-              Right now your shelf is only in this browser — clearing site data would wipe it.
-              Sign in and it's kept in the cloud instead, on every device you use.
+              {mode === 'signin'
+                ? 'Your shelf is only in this browser until you sign in. Signed in, it lives in the cloud and reaches every device you use.'
+                : 'One account keeps your shelf safe from a browser wipe and carries it between your phone and laptop.'}
             </p>
-            <p className="account-body subtle">
-              No password. We email you a one-time link.
-            </p>
+
             <form className="detail-section account-form" onSubmit={submit}>
               <input
-                className="notes account-email"
+                className="notes account-field"
                 type="email"
                 required
                 autoComplete="email"
-                placeholder="you@example.com"
+                placeholder="Email"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 aria-label="Email address"
               />
-              <button className="btn-primary full" type="submit" disabled={sending}>
-                {sending ? 'Sending…' : 'Email me a link'}
+              <input
+                className="notes account-field"
+                type="password"
+                required
+                minLength={6}
+                autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
+                placeholder={mode === 'signin' ? 'Password' : 'Password (6+ characters)'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                aria-label="Password"
+              />
+              <button className="btn-primary full" type="submit" disabled={busy}>
+                {busy ? 'One moment…' : mode === 'signin' ? 'Sign in' : 'Create account'}
               </button>
             </form>
+
             {error && <p className="account-error">{error}</p>}
+
+            <p className="account-switch">
+              {mode === 'signin' ? (
+                <>
+                  No account yet?{' '}
+                  <button className="link-btn" onClick={() => switchMode('signup')}>
+                    Create one
+                  </button>
+                </>
+              ) : (
+                <>
+                  Already have one?{' '}
+                  <button className="link-btn" onClick={() => switchMode('signin')}>
+                    Sign in
+                  </button>
+                </>
+              )}
+            </p>
           </>
         )}
 

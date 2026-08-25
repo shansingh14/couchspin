@@ -35,7 +35,7 @@ fragile. Clearing site data wipes it, and Safari evicts localStorage for sites y
 haven't opened in about a week. It also can't reach your other devices. The **Back
 up** button on the shelf writes a JSON file you own; **Restore** merges one back in.
 
-**With sync configured**, you sign in with a one-time emailed link and the shelf
+**With sync configured**, you sign in with an email and password and the shelf
 follows you to any device you sign in on. Clearing a browser no longer loses
 anything.
 
@@ -57,16 +57,17 @@ anything.
 4. Add both to Vercel under **Settings → Environment Variables**:
    - `VITE_SUPABASE_URL` — e.g. `https://yourproject.supabase.co`
    - `VITE_SUPABASE_PUBLISHABLE_KEY`
-5. In Supabase under **Authentication → URL Configuration**, set **Site URL** to
-   your deployed origin and add both of these to **Redirect URLs**:
-   - `https://your-app.vercel.app/**`
-   - `http://localhost:5173/**` (for local dev)
-
-   Sign-in links redirect back to `window.location.origin`; if that origin isn't
-   allow-listed here, the emailed link bounces to Supabase's default and sign-in
-   silently fails.
+5. Optional but recommended for a personal app: in Supabase under **Authentication
+   → Sign In / Providers → Email**, turn **Confirm email** off. Sign-up then works
+   immediately. Left on, Supabase emails a confirmation link first — and the free
+   tier's built-in mail is rate-limited to a couple of messages an hour, which is
+   an unpleasant way to get stuck.
 6. Redeploy. For local dev, put the same two variables in `.env.local` (see
    `.env.example`).
+
+Authentication is plain email + password (`signInWithPassword`). Supabase stores
+only a salted hash — the app never sees or keeps the password, and the session
+token it does keep is refreshed automatically.
 
 The publishable key is meant to ship in the browser bundle; row-level security is
 what protects the data, not the secrecy of that key.

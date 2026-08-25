@@ -17,7 +17,7 @@ export default function App() {
   const [theme, setTheme] = useState<'day' | 'night'>(() => loadTheme())
   const [view, setView] = useState<'spin' | 'shelf'>('spin')
   const [category, setCategory] = useState<Category>('films')
-  const { library, update, replace, sync, email, signedIn, signIn, signOut } = useLibrary()
+  const { library, update, replace, sync, email, signedIn, signIn, signUp, signOut } = useLibrary()
 
   const [result, setResult] = useState<Title | null>(null)
   const [detail, setDetail] = useState<Title | null>(null)
@@ -110,6 +110,7 @@ export default function App() {
         email={email}
         signedIn={signedIn}
         onSignIn={signIn}
+        onSignUp={signUp}
         onSignOut={signOut}
       />
     </div>

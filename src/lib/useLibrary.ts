@@ -130,13 +130,26 @@ export function useLibrary() {
     [schedulePush]
   )
 
-  const signIn = useCallback(async (address: string) => {
+  const signIn = useCallback(async (address: string, password: string) => {
     if (!supabase) throw new Error('Cloud sync is not configured.')
-    const { error } = await supabase.auth.signInWithOtp({
+    const { error } = await supabase.auth.signInWithPassword({ email: address, password })
+    if (error) throw error
+  }, [])
+
+  /**
+   * Resolves `needsConfirmation: true` when the project still has "Confirm
+   * email" switched on — Supabase then returns a user but no session until the
+   * emailed link is opened.
+   */
+  const signUp = useCallback(async (address: string, password: string) => {
+    if (!supabase) throw new Error('Cloud sync is not configured.')
+    const { data, error } = await supabase.auth.signUp({
       email: address,
+      password,
       options: { emailRedirectTo: window.location.origin },
     })
     if (error) throw error
+    return { needsConfirmation: data.session === null }
   }, [])
 
   const signOut = useCallback(async () => {
@@ -145,5 +158,5 @@ export function useLibrary() {
     setSync('signed_out')
   }, [])
 
-  return { library, update, replace, sync, email, signedIn: userId !== null, signIn, signOut }
+  return { library, update, replace, sync, email, signedIn: userId !== null, signIn, signUp, signOut }
 }

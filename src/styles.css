@@ -1260,10 +1260,17 @@ a {
   gap: 9px;
 }
 
-.account-email {
+.account-field {
   resize: none;
   border-radius: 999px;
   padding: 13px 20px;
+}
+
+.account-switch {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--ink-3);
 }
 
 .btn-primary.full,
