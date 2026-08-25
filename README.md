@@ -46,14 +46,30 @@ anything.
 2. Open the SQL editor and run [`supabase/schema.sql`](supabase/schema.sql). It
    creates one `libraries` table and the row-level-security policies that keep each
    row readable only by the user it belongs to.
-3. In **Settings → API**, copy the *Project URL* and the *anon / public* key.
-4. Add them to Vercel under **Settings → Environment Variables**:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-5. Redeploy. For local dev, put the same two in `.env.local` (see `.env.example`).
+3. In **Settings → API keys**, take the **publishable** key (`sb_publishable_…`).
+   That is the browser-safe one — it replaced the legacy `anon` key.
 
-The anon key is meant to ship in the browser bundle; row-level security is what
-protects the data, not the secrecy of that key.
+   > Do **not** use the *secret* or *service* keys. They bypass row-level security
+   > completely, and any `VITE_`-prefixed variable is compiled into the JavaScript
+   > every visitor downloads. Putting one there hands anyone who opens devtools full
+   > read/write on the whole database.
+
+4. Add both to Vercel under **Settings → Environment Variables**:
+   - `VITE_SUPABASE_URL` — e.g. `https://yourproject.supabase.co`
+   - `VITE_SUPABASE_PUBLISHABLE_KEY`
+5. In Supabase under **Authentication → URL Configuration**, set **Site URL** to
+   your deployed origin and add both of these to **Redirect URLs**:
+   - `https://your-app.vercel.app/**`
+   - `http://localhost:5173/**` (for local dev)
+
+   Sign-in links redirect back to `window.location.origin`; if that origin isn't
+   allow-listed here, the emailed link bounces to Supabase's default and sign-in
+   silently fails.
+6. Redeploy. For local dev, put the same two variables in `.env.local` (see
+   `.env.example`).
+
+The publishable key is meant to ship in the browser bundle; row-level security is
+what protects the data, not the secrecy of that key.
 
 ### How conflicts resolve
 

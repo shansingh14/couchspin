@@ -57,8 +57,8 @@ export function AccountSheet({ open, onClose, sync, email, signedIn, onSignIn, o
             </p>
             <p className="account-body">
               Use <strong>Back up</strong> at the bottom of the shelf to keep a copy you own.
-              Adding <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_ANON_KEY</code> turns
-              on sync — see the README.
+              Adding <code>VITE_SUPABASE_URL</code> and{' '}
+              <code>VITE_SUPABASE_PUBLISHABLE_KEY</code> turns on sync — see the README.
             </p>
           </>
         ) : signedIn ? (
