@@ -4,6 +4,7 @@ import type { Library, Status, Title } from '../lib/types'
 import { exportLibrary, parseImport, statusOf } from '../lib/storage'
 import { metaLine } from '../lib/format'
 import type { SyncState } from '../lib/useLibrary'
+import { Poster } from './Poster'
 import { StarRating } from './StarRating'
 
 const STATUS_META: Record<Status, { label: string }> = {
@@ -149,12 +150,15 @@ export function Shelf({ library, onSetStatus, onOpen, onReplaceLibrary, sync, on
                 <StatusGlyph status={s} />
               </button>
               <button className="shelf-main" onClick={() => onOpen(t)}>
+                <Poster title={t} size="sm" />
+                <span className="shelf-text">
                 <span className="shelf-name">
                   {t.name}
                   {entry?.notes ? <span className="row-mark" title="Has notes"> ✎</span> : null}
                   {entry?.logged ? <span className="row-mark" title="Logged on Letterboxd"> ◆</span> : null}
                 </span>
                 <span className="shelf-meta">{metaLine(t)}</span>
+                </span>
               </button>
               <span className="shelf-side">
                 {entry?.rating ? <StarRating value={entry.rating} readonly size={12} /> : <span className="shelf-chev">›</span>}

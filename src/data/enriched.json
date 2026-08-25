@@ -1,0 +1,780 @@
+{
+ "breaking-bad": {
+  "source": "tvmaze",
+  "sourceId": 169,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/501/1253519.jpg",
+  "matchedName": "Breaking Bad",
+  "year": 2008,
+  "mins": 60
+ },
+ "better-call-saul": {
+  "source": "tvmaze",
+  "sourceId": 618,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/501/1253515.jpg",
+  "matchedName": "Better Call Saul",
+  "year": 2015,
+  "seasons": 6,
+  "mins": 64,
+  "endYear": 2022
+ },
+ "game-of-thrones": {
+  "source": "tvmaze",
+  "sourceId": 82,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/498/1245274.jpg",
+  "matchedName": "Game of Thrones",
+  "year": 2011,
+  "seasons": 8,
+  "mins": 61,
+  "endYear": 2019
+ },
+ "house-of-dragon": {
+  "source": "tvmaze",
+  "sourceId": 44778,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/627/1568449.jpg",
+  "matchedName": "House of the Dragon",
+  "year": 2022,
+  "seasons": 3,
+  "mins": 66
+ },
+ "the-wire": {
+  "source": "tvmaze",
+  "sourceId": 179,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/504/1260189.jpg",
+  "matchedName": "The Wire",
+  "year": 2002,
+  "seasons": 5,
+  "mins": 60,
+  "endYear": 2008
+ },
+ "the-sopranos": {
+  "source": "tvmaze",
+  "sourceId": 527,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/4/11341.jpg",
+  "matchedName": "The Sopranos",
+  "year": 1999,
+  "seasons": 6,
+  "mins": 58,
+  "endYear": 2007
+ },
+ "suits": {
+  "source": "tvmaze",
+  "sourceId": 172,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/393/983536.jpg",
+  "matchedName": "Suits",
+  "year": 2011,
+  "seasons": 9,
+  "mins": 60,
+  "endYear": 2019
+ },
+ "the-office": {
+  "source": "tvmaze",
+  "sourceId": 526,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/481/1204342.jpg",
+  "matchedName": "The Office",
+  "year": 2005,
+  "seasons": 9,
+  "mins": 30,
+  "endYear": 2013
+ },
+ "parks-and-rec": {
+  "source": "tvmaze",
+  "sourceId": 174,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/481/1204341.jpg",
+  "matchedName": "Parks and Recreation",
+  "year": 2009,
+  "seasons": 7,
+  "mins": 30,
+  "endYear": 2015
+ },
+ "friends": {
+  "source": "tvmaze",
+  "sourceId": 431,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/41/104565.jpg",
+  "matchedName": "Friends",
+  "year": 1994,
+  "seasons": 10,
+  "mins": 30,
+  "endYear": 2004
+ },
+ "himym": {
+  "source": "tvmaze",
+  "sourceId": 171,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/0/2451.jpg",
+  "matchedName": "How I Met Your Mother",
+  "year": 2005,
+  "seasons": 9,
+  "mins": 30,
+  "endYear": 2014
+ },
+ "brooklyn-99": {
+  "source": "tvmaze",
+  "sourceId": 49,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/402/1007484.jpg",
+  "matchedName": "Brooklyn Nine-Nine",
+  "year": 2013,
+  "seasons": 8,
+  "mins": 30,
+  "endYear": 2021
+ },
+ "community": {
+  "source": "tvmaze",
+  "sourceId": 318,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/2/5134.jpg",
+  "matchedName": "Community",
+  "year": 2009,
+  "seasons": 6,
+  "mins": 30,
+  "endYear": 2015
+ },
+ "new-girl": {
+  "source": "tvmaze",
+  "sourceId": 58,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/481/1202650.jpg",
+  "matchedName": "New Girl",
+  "year": 2011,
+  "seasons": 7,
+  "mins": 30,
+  "endYear": 2018
+ },
+ "seinfeld": {
+  "source": "tvmaze",
+  "sourceId": 530,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/83/207960.jpg",
+  "matchedName": "Seinfeld",
+  "year": 1989,
+  "seasons": 9,
+  "mins": 30,
+  "endYear": 1998
+ },
+ "always-sunny": {
+  "source": "tvmaze",
+  "sourceId": 347,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/636/1592247.jpg",
+  "matchedName": "It's Always Sunny in Philadelphia",
+  "year": 2005,
+  "seasons": 18,
+  "mins": 30
+ },
+ "modern-family": {
+  "source": "tvmaze",
+  "sourceId": 80,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/359/898320.jpg",
+  "matchedName": "Modern Family",
+  "year": 2009,
+  "seasons": 11,
+  "mins": 30,
+  "endYear": 2020
+ },
+ "ted-lasso": {
+  "source": "tvmaze",
+  "sourceId": 44458,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/634/1585930.jpg",
+  "matchedName": "Ted Lasso",
+  "year": 2020,
+  "seasons": 4,
+  "mins": 43
+ },
+ "schitts-creek": {
+  "source": "tvmaze",
+  "sourceId": 1775,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/279/697623.jpg",
+  "matchedName": "Schitt's Creek",
+  "year": 2015,
+  "seasons": 6,
+  "mins": 30,
+  "endYear": 2020
+ },
+ "good-place": {
+  "source": "tvmaze",
+  "sourceId": 2790,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/395/989291.jpg",
+  "matchedName": "The Good Place",
+  "year": 2016,
+  "seasons": 4,
+  "mins": 31,
+  "endYear": 2020
+ },
+ "sherlock": {
+  "source": "tvmaze",
+  "sourceId": 335,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/171/428042.jpg",
+  "matchedName": "Sherlock",
+  "year": 2010,
+  "seasons": 4,
+  "mins": 90,
+  "endYear": 2017
+ },
+ "peaky-blinders": {
+  "source": "tvmaze",
+  "sourceId": 269,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/48/122213.jpg",
+  "matchedName": "Peaky Blinders",
+  "year": 2013,
+  "seasons": 6,
+  "mins": 61
+ },
+ "stranger-things": {
+  "source": "tvmaze",
+  "sourceId": 2993,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/595/1489169.jpg",
+  "matchedName": "Stranger Things",
+  "year": 2016,
+  "seasons": 5,
+  "mins": 65,
+  "endYear": 2025
+ },
+ "dark": {
+  "source": "tvmaze",
+  "sourceId": 17861,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/504/1262352.jpg",
+  "matchedName": "Dark",
+  "year": 2017,
+  "seasons": 3,
+  "mins": 56,
+  "endYear": 2020
+ },
+ "black-mirror": {
+  "source": "tvmaze",
+  "sourceId": 305,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/564/1411764.jpg",
+  "matchedName": "Black Mirror",
+  "year": 2011,
+  "seasons": 7,
+  "mins": 62
+ },
+ "westworld": {
+  "source": "tvmaze",
+  "sourceId": 1371,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/445/1113927.jpg",
+  "matchedName": "Westworld",
+  "year": 2016,
+  "seasons": 4,
+  "mins": 63,
+  "endYear": 2022
+ },
+ "true-detective": {
+  "source": "tvmaze",
+  "sourceId": 5,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/490/1226764.jpg",
+  "matchedName": "True Detective",
+  "year": 2014,
+  "seasons": 4,
+  "mins": 63
+ },
+ "mindhunter": {
+  "source": "tvmaze",
+  "sourceId": 10822,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/501/1253490.jpg",
+  "matchedName": "MINDHUNTER",
+  "year": 2017,
+  "seasons": 2,
+  "mins": 54,
+  "endYear": 2019
+ },
+ "narcos": {
+  "source": "tvmaze",
+  "sourceId": 2705,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/498/1246087.jpg",
+  "matchedName": "Narcos",
+  "year": 2015,
+  "seasons": 3,
+  "mins": 52,
+  "endYear": 2017
+ },
+ "money-heist": {
+  "source": "tvmaze",
+  "sourceId": 27436,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/376/940830.jpg",
+  "matchedName": "La Casa de Papel",
+  "year": 2017,
+  "seasons": 4,
+  "mins": 60,
+  "endYear": 2021
+ },
+ "squid-game": {
+  "source": "tvmaze",
+  "sourceId": 43687,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/576/1440521.jpg",
+  "matchedName": "Squid Game",
+  "year": 2021,
+  "seasons": 3,
+  "mins": 59,
+  "endYear": 2025
+ },
+ "succession": {
+  "source": "tvmaze",
+  "sourceId": 23470,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/453/1134275.jpg",
+  "matchedName": "Succession",
+  "year": 2018,
+  "seasons": 4,
+  "mins": 63,
+  "endYear": 2023
+ },
+ "the-crown": {
+  "source": "tvmaze",
+  "sourceId": 3594,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/632/1580063.jpg",
+  "matchedName": "The Crown",
+  "year": 2016,
+  "seasons": 6,
+  "mins": 55,
+  "endYear": 2023
+ },
+ "the-boys": {
+  "source": "tvmaze",
+  "sourceId": 15299,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/619/1547768.jpg",
+  "matchedName": "The Boys",
+  "year": 2019,
+  "seasons": 5,
+  "mins": 63,
+  "endYear": 2026
+ },
+ "invincible": {
+  "source": "tvmaze",
+  "sourceId": 37196,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/618/1545777.jpg",
+  "matchedName": "Invincible",
+  "year": 2021,
+  "seasons": 4,
+  "mins": 49
+ },
+ "arcane": {
+  "source": "tvmaze",
+  "sourceId": 55138,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/536/1340287.jpg",
+  "matchedName": "Arcane: League of Legends",
+  "year": 2021,
+  "seasons": 2,
+  "mins": 41,
+  "endYear": 2024
+ },
+ "avatar-tla": {
+  "source": "tvmaze",
+  "sourceId": 555,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/79/199224.jpg",
+  "matchedName": "Avatar: The Last Airbender",
+  "year": 2005,
+  "mins": 30
+ },
+ "attack-on-titan": {
+  "source": "tvmaze",
+  "sourceId": 919,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/632/1582290.jpg",
+  "matchedName": "Attack on Titan",
+  "year": 2013,
+  "seasons": 4,
+  "mins": 26,
+  "endYear": 2023
+ },
+ "death-note": {
+  "source": "tvmaze",
+  "sourceId": 40,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/499/1249019.jpg",
+  "matchedName": "Death Note",
+  "year": 2006,
+  "seasons": 1,
+  "mins": 30,
+  "endYear": 2007
+ },
+ "fmab": {
+  "source": "tvmaze",
+  "sourceId": 2071,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/485/1214095.jpg",
+  "matchedName": "Fullmetal Alchemist: Brotherhood",
+  "year": 2009,
+  "seasons": 1,
+  "mins": 25,
+  "endYear": 2010
+ },
+ "cowboy-bebop": {
+  "source": "tvmaze",
+  "sourceId": 1121,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/178/446548.jpg",
+  "matchedName": "Cowboy Bebop",
+  "year": 1998,
+  "seasons": 1,
+  "mins": 30,
+  "endYear": 2001
+ },
+ "demon-slayer": {
+  "source": "tvmaze",
+  "sourceId": 41469,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/456/1140750.jpg",
+  "matchedName": "Demon Slayer",
+  "year": 2019,
+  "seasons": 4,
+  "mins": 31,
+  "endYear": 2024
+ },
+ "one-piece": {
+  "source": "tvmaze",
+  "sourceId": 1505,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/504/1262497.jpg",
+  "matchedName": "One Piece",
+  "year": 1999,
+  "seasons": 28,
+  "mins": 26
+ },
+ "chernobyl": {
+  "source": "tvmaze",
+  "sourceId": 30770,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/193/482599.jpg",
+  "matchedName": "Chernobyl",
+  "year": 2019,
+  "seasons": 1,
+  "mins": 70,
+  "endYear": 2019
+ },
+ "band-of-brothers": {
+  "source": "tvmaze",
+  "sourceId": 465,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/80/201679.jpg",
+  "matchedName": "Band of Brothers",
+  "year": 2001,
+  "seasons": 1,
+  "mins": 59,
+  "endYear": 2001
+ },
+ "last-of-us": {
+  "source": "tvmaze",
+  "sourceId": 46562,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/563/1409008.jpg",
+  "matchedName": "The Last of Us",
+  "year": 2023,
+  "seasons": 2,
+  "mins": 61
+ },
+ "house-md": {
+  "source": "tvmaze",
+  "sourceId": 118,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/357/894990.jpg",
+  "matchedName": "House",
+  "year": 2004,
+  "seasons": 8,
+  "mins": 60,
+  "endYear": 2012
+ },
+ "dexter": {
+  "source": "tvmaze",
+  "sourceId": 161,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/498/1246067.jpg",
+  "matchedName": "Dexter",
+  "year": 2006,
+  "seasons": 8,
+  "mins": 60,
+  "endYear": 2013
+ },
+ "prison-break": {
+  "source": "tvmaze",
+  "sourceId": 541,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/104/261034.jpg",
+  "matchedName": "Prison Break",
+  "year": 2005,
+  "seasons": 5,
+  "mins": 60,
+  "endYear": 2017
+ },
+ "lost": {
+  "source": "tvmaze",
+  "sourceId": 123,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/0/1389.jpg",
+  "matchedName": "Lost",
+  "year": 2004,
+  "seasons": 6,
+  "mins": 60,
+  "endYear": 2010
+ },
+ "vikings": {
+  "source": "tvmaze",
+  "sourceId": 29,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/286/715906.jpg",
+  "matchedName": "Vikings",
+  "year": 2013,
+  "seasons": 6,
+  "mins": 60,
+  "endYear": 2021
+ },
+ "mandalorian": {
+  "source": "tvmaze",
+  "sourceId": 38963,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/501/1253498.jpg",
+  "matchedName": "The Mandalorian",
+  "year": 2019,
+  "seasons": 3,
+  "mins": 40,
+  "endYear": 2023
+ },
+ "andor": {
+  "source": "tvmaze",
+  "sourceId": 52341,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/564/1411766.jpg",
+  "matchedName": "Andor",
+  "year": 2022,
+  "seasons": 2,
+  "mins": 48,
+  "endYear": 2025
+ },
+ "daredevil": {
+  "source": "tvmaze",
+  "sourceId": 1369,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/171/429391.jpg",
+  "matchedName": "Marvel's Daredevil",
+  "year": 2015,
+  "seasons": 3,
+  "mins": 55,
+  "endYear": 2018
+ },
+ "queens-gambit": {
+  "source": "tvmaze",
+  "sourceId": 41428,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/510/1275203.jpg",
+  "matchedName": "The Queen's Gambit",
+  "year": 2020,
+  "seasons": 1,
+  "mins": 56,
+  "endYear": 2020
+ },
+ "fleabag": {
+  "source": "tvmaze",
+  "sourceId": 16149,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/192/482341.jpg",
+  "matchedName": "Fleabag",
+  "year": 2016,
+  "seasons": 2,
+  "mins": 30,
+  "endYear": 2019
+ },
+ "normal-people": {
+  "source": "tvmaze",
+  "sourceId": 42361,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/249/623354.jpg",
+  "matchedName": "Normal People",
+  "year": 2020,
+  "seasons": 1,
+  "mins": 28,
+  "endYear": 2020
+ },
+ "bojack": {
+  "source": "tvmaze",
+  "sourceId": 184,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/405/1012627.jpg",
+  "matchedName": "BoJack Horseman",
+  "year": 2014,
+  "seasons": 6,
+  "mins": 26,
+  "endYear": 2020
+ },
+ "rick-and-morty": {
+  "source": "tvmaze",
+  "sourceId": 216,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/626/1566363.jpg",
+  "matchedName": "Rick and Morty",
+  "year": 2013,
+  "seasons": 9,
+  "mins": 30
+ },
+ "simpsons": {
+  "source": "tvmaze",
+  "sourceId": 83,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/637/1594614.jpg",
+  "matchedName": "The Simpsons",
+  "year": 1989,
+  "seasons": 38,
+  "mins": 30
+ },
+ "gravity-falls": {
+  "source": "tvmaze",
+  "sourceId": 396,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/2/6140.jpg",
+  "matchedName": "Gravity Falls",
+  "year": 2012,
+  "seasons": 2,
+  "mins": 30,
+  "endYear": 2016
+ },
+ "over-the-garden-wall": {
+  "source": "tvmaze",
+  "sourceId": 1744,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/221/554447.jpg",
+  "matchedName": "Over the Garden Wall",
+  "year": 2014,
+  "seasons": 1,
+  "mins": 15,
+  "endYear": 2014
+ },
+ "severance": {
+  "source": "tvmaze",
+  "sourceId": 44933,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/548/1371406.jpg",
+  "matchedName": "Severance",
+  "year": 2022,
+  "seasons": 2,
+  "mins": 49
+ },
+ "the-bear": {
+  "source": "tvmaze",
+  "sourceId": 54198,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/629/1574642.jpg",
+  "matchedName": "The Bear",
+  "year": 2022,
+  "seasons": 5,
+  "mins": 35,
+  "endYear": 2026
+ },
+ "white-lotus": {
+  "source": "tvmaze",
+  "sourceId": 51394,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/557/1393876.jpg",
+  "matchedName": "The White Lotus",
+  "year": 2021,
+  "seasons": 3,
+  "mins": 64
+ },
+ "euphoria": {
+  "source": "tvmaze",
+  "sourceId": 28826,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/621/1552657.jpg",
+  "matchedName": "Euphoria",
+  "year": 2019,
+  "seasons": 3,
+  "mins": 62,
+  "endYear": 2026
+ },
+ "sex-education": {
+  "source": "tvmaze",
+  "sourceId": 36795,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/483/1209495.jpg",
+  "matchedName": "Sex Education",
+  "year": 2019,
+  "seasons": 4,
+  "mins": 55,
+  "endYear": 2023
+ },
+ "wednesday": {
+  "source": "tvmaze",
+  "sourceId": 53647,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/586/1466410.jpg",
+  "matchedName": "Wednesday",
+  "year": 2022,
+  "seasons": 2,
+  "mins": 54
+ },
+ "you": {
+  "source": "tvmaze",
+  "sourceId": 26856,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/564/1412472.jpg",
+  "matchedName": "You",
+  "year": 2018,
+  "seasons": 5,
+  "mins": 52,
+  "endYear": 2025
+ },
+ "downton-abbey": {
+  "source": "tvmaze",
+  "sourceId": 251,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/1/4601.jpg",
+  "matchedName": "Downton Abbey",
+  "year": 2010,
+  "seasons": 6,
+  "mins": 71,
+  "endYear": 2015
+ },
+ "gilmore-girls": {
+  "source": "tvmaze",
+  "sourceId": 525,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/4/11308.jpg",
+  "matchedName": "Gilmore Girls",
+  "year": 2000,
+  "seasons": 7,
+  "mins": 60,
+  "endYear": 2007
+ },
+ "derry-girls": {
+  "source": "tvmaze",
+  "sourceId": 33320,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/402/1007479.jpg",
+  "matchedName": "Derry Girls",
+  "year": 2018,
+  "seasons": 3,
+  "mins": 31,
+  "endYear": 2022
+ },
+ "silicon-valley": {
+  "source": "tvmaze",
+  "sourceId": 143,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/215/538434.jpg",
+  "matchedName": "Silicon Valley",
+  "year": 2014,
+  "seasons": 6,
+  "mins": 30,
+  "endYear": 2019
+ },
+ "mr-robot": {
+  "source": "tvmaze",
+  "sourceId": 1871,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/211/528026.jpg",
+  "matchedName": "Mr. Robot",
+  "year": 2015,
+  "seasons": 4,
+  "mins": 61,
+  "endYear": 2019
+ },
+ "twin-peaks": {
+  "source": "tvmaze",
+  "sourceId": 156,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/397/992910.jpg",
+  "matchedName": "Twin Peaks",
+  "year": 1990,
+  "mins": 62
+ },
+ "freaks-and-geeks": {
+  "source": "tvmaze",
+  "sourceId": 755,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/495/1239324.jpg",
+  "matchedName": "Freaks and Geeks",
+  "year": 1999,
+  "seasons": 1,
+  "mins": 60,
+  "endYear": 2000
+ },
+ "bridgerton": {
+  "source": "tvmaze",
+  "sourceId": 42966,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/614/1535959.jpg",
+  "matchedName": "Bridgerton",
+  "year": 2020,
+  "seasons": 4,
+  "mins": 63
+ },
+ "heartstopper": {
+  "source": "tvmaze",
+  "sourceId": 53269,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/632/1580747.jpg",
+  "matchedName": "Heartstopper",
+  "year": 2022,
+  "seasons": 3,
+  "mins": 34,
+  "endYear": 2026
+ },
+ "big-bang-theory": {
+  "source": "tvmaze",
+  "sourceId": 66,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/173/433868.jpg",
+  "matchedName": "The Big Bang Theory",
+  "year": 2007,
+  "seasons": 12,
+  "mins": 30,
+  "endYear": 2019
+ },
+ "greys-anatomy": {
+  "source": "tvmaze",
+  "sourceId": 67,
+  "poster": "https://static.tvmaze.com/uploads/images/medium_portrait/600/1501061.jpg",
+  "matchedName": "Grey's Anatomy",
+  "year": 2005,
+  "seasons": 23,
+  "mins": 60
+ }
+}

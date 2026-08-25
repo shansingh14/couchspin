@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { TITLES } from '../data/titles'
 import type { Library, Title } from '../lib/types'
 import { GENRES } from '../lib/types'
@@ -7,6 +7,10 @@ import { sample } from '../lib/wheel'
 import { Wheel } from './Wheel'
 
 export type Category = 'films' | 'tv'
+
+/** How many titles are on the wheel at once — enough to feel like a choice,
+ *  few enough that the labels stay readable. */
+const SLOTS = 10
 
 interface SpinViewProps {
   category: Category
@@ -39,8 +43,40 @@ export function SpinView({ category, onCategoryChange, library, onResult, autoSp
     })
   }, [category, genres, rewatch, library])
 
-  const poolKey = useMemo(() => pool.map((t) => t.id).join('|'), [pool])
-  const wheelTitles = useMemo(() => sample(pool, 10), [poolKey, nonce]) // eslint-disable-line react-hooks/exhaustive-deps
+  const [slots, setSlots] = useState<Title[]>(() => sample(pool, SLOTS))
+
+  // Reconcile the wheel with the pool without re-dealing it. A title that
+  // leaves the pool (you watched it, or a filter changed) is replaced in place
+  // by one that isn't on the wheel yet; every other slot keeps its title, so
+  // marking one thing watched doesn't shuffle the nine you were still choosing
+  // between. Filter or category changes empty the wheel wholesale, which the
+  // same logic handles by refilling every slot.
+  useEffect(() => {
+    setSlots((current) => {
+      const inPool = new Set(pool.map((t) => t.id))
+      const survivors = current.filter((t) => inPool.has(t.id))
+      if (survivors.length === current.length && current.length === Math.min(SLOTS, pool.length)) {
+        return current
+      }
+      const taken = new Set(survivors.map((t) => t.id))
+      const replacements = sample(
+        pool.filter((t) => !taken.has(t.id)),
+        Math.min(SLOTS, pool.length) - survivors.length
+      )
+      let next = 0
+      const filled = current.map((t) => (inPool.has(t.id) ? t : replacements[next++]))
+      // drop any slot we couldn't refill, then top up if the wheel grew
+      return [...filled.filter(Boolean), ...replacements.slice(next)].slice(0, SLOTS)
+    })
+  }, [pool])
+
+  // "Deal a fresh wheel" is the one path that replaces everything
+  useEffect(() => {
+    if (nonce > 0) setSlots(sample(pool, SLOTS))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nonce])
+
+  const wheelTitles = slots
 
   return (
     <section className="spin-view">
