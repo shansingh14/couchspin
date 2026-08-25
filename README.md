@@ -26,15 +26,42 @@ Then open http://localhost:5173.
 
 ## Where your data lives
 
-Everything is stored in `localStorage` under `couchspin.library.v1` — no account, no
-backend, works offline, nothing leaves the browser. The trade-off is that your shelf
-doesn't follow you between devices, so the shelf has **Back up** and **Restore**
-buttons that round-trip a JSON file.
+Two layers. `localStorage` (key `couchspin.library.v1`) is always written, so the app
+opens instantly and keeps working offline. If cloud sync is switched on, that same
+shelf is also kept in Supabase, which is the durable copy.
 
-If you later want real cross-device sync, `src/lib/storage.ts` is the only module
-that touches persistence — swapping it for Supabase means reimplementing
-`loadLibrary` / `saveLibrary` against a `library` table keyed by user id, and
-wrapping `useLibrary` in an auth check. Nothing else in the app needs to change.
+**Without sync configured**, localStorage is all there is — and it is genuinely
+fragile. Clearing site data wipes it, and Safari evicts localStorage for sites you
+haven't opened in about a week. It also can't reach your other devices. The **Back
+up** button on the shelf writes a JSON file you own; **Restore** merges one back in.
+
+**With sync configured**, you sign in with a one-time emailed link and the shelf
+follows you to any device you sign in on. Clearing a browser no longer loses
+anything.
+
+### Turning sync on
+
+1. Create a project at [supabase.com](https://supabase.com) (the free tier is far
+   more than enough — the whole shelf is a few tens of KB).
+2. Open the SQL editor and run [`supabase/schema.sql`](supabase/schema.sql). It
+   creates one `libraries` table and the row-level-security policies that keep each
+   row readable only by the user it belongs to.
+3. In **Settings → API**, copy the *Project URL* and the *anon / public* key.
+4. Add them to Vercel under **Settings → Environment Variables**:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+5. Redeploy. For local dev, put the same two in `.env.local` (see `.env.example`).
+
+The anon key is meant to ship in the browser bundle; row-level security is what
+protects the data, not the secrecy of that key.
+
+### How conflicts resolve
+
+Every entry carries an `updatedAt`. Merges run per title, newest wins — so two
+devices that edited *different* titles while offline both keep their changes rather
+than one overwriting the other wholesale. Pushes re-read the remote row and merge
+before writing, and the first sign-in on a device merges local and cloud in both
+directions, so connecting a phone that already has a shelf won't discard either side.
 
 ## Adding titles
 
@@ -50,9 +77,9 @@ stores, so renaming one resets that title's history — change the `name`, not t
 
 ## Stack
 
-React 19 + TypeScript + Vite, deployed on Vercel. No UI framework and no CSS
-library; the whole look is one hand-written stylesheet, and the valley background
-is layered CSS gradients rather than an image, so it stays sharp at any size and
-costs nothing to load.
+React 19 + TypeScript + Vite, deployed on Vercel, with Supabase for optional sync.
+No UI framework and no CSS library; the whole look is one hand-written stylesheet,
+and the valley background is layered CSS gradients rather than an image, so it stays
+sharp at any size and costs nothing to load.
 
 Fonts are Instrument Serif and DM Sans.

@@ -10,16 +10,18 @@ import { SpinView } from './components/SpinView'
 import type { Category } from './components/SpinView'
 import { ResultSheet } from './components/ResultSheet'
 import { TitleSheet } from './components/TitleSheet'
+import { AccountSheet } from './components/AccountSheet'
 import { Shelf } from './components/Shelf'
 
 export default function App() {
   const [theme, setTheme] = useState<'day' | 'night'>(() => loadTheme())
   const [view, setView] = useState<'spin' | 'shelf'>('spin')
   const [category, setCategory] = useState<Category>('films')
-  const { library, update, replace } = useLibrary()
+  const { library, update, replace, sync, email, signedIn, signIn, signOut } = useLibrary()
 
   const [result, setResult] = useState<Title | null>(null)
   const [detail, setDetail] = useState<Title | null>(null)
+  const [accountOpen, setAccountOpen] = useState(false)
   const [burst, setBurst] = useState(0)
   const [autoSpin, setAutoSpin] = useState(0)
   const resultTimer = useRef(0)
@@ -50,6 +52,8 @@ export default function App() {
         onToggleTheme={() => setTheme((t) => (t === 'day' ? 'night' : 'day'))}
         view={view}
         onNavigate={setView}
+        sync={sync}
+        onOpenAccount={() => setAccountOpen(true)}
       />
 
       <main className="main">
@@ -67,6 +71,8 @@ export default function App() {
             onSetStatus={setStatus}
             onOpen={setDetail}
             onReplaceLibrary={replace}
+            sync={sync}
+            onOpenAccount={() => setAccountOpen(true)}
           />
         )}
       </main>
@@ -95,6 +101,16 @@ export default function App() {
         entry={detail ? library[detail.id] : undefined}
         onClose={() => setDetail(null)}
         onUpdate={update}
+      />
+
+      <AccountSheet
+        open={accountOpen}
+        onClose={() => setAccountOpen(false)}
+        sync={sync}
+        email={email}
+        signedIn={signedIn}
+        onSignIn={signIn}
+        onSignOut={signOut}
       />
     </div>
   )

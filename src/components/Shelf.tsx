@@ -3,6 +3,7 @@ import { TITLES } from '../data/titles'
 import type { Library, Status, Title } from '../lib/types'
 import { exportLibrary, parseImport, statusOf } from '../lib/storage'
 import { metaLine } from '../lib/format'
+import type { SyncState } from '../lib/useLibrary'
 import { StarRating } from './StarRating'
 
 const STATUS_META: Record<Status, { label: string }> = {
@@ -45,12 +46,14 @@ interface ShelfProps {
   onSetStatus: (id: string, s: Status) => void
   onOpen: (t: Title) => void
   onReplaceLibrary: (lib: Library) => void
+  sync: SyncState
+  onOpenAccount: () => void
 }
 
 type KindFilter = 'all' | 'films' | 'tv'
 type StatusFilter = 'all' | Status
 
-export function Shelf({ library, onSetStatus, onOpen, onReplaceLibrary }: ShelfProps) {
+export function Shelf({ library, onSetStatus, onOpen, onReplaceLibrary, sync, onOpenAccount }: ShelfProps) {
   const [query, setQuery] = useState('')
   const [kindFilter, setKindFilter] = useState<KindFilter>('all')
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
@@ -163,7 +166,13 @@ export function Shelf({ library, onSetStatus, onOpen, onReplaceLibrary }: ShelfP
       </ul>
 
       <div className="shelf-data">
-        <span>Saved in this browser.</span>
+        {sync === 'synced' || sync === 'syncing' ? (
+          <span>Synced to the cloud.</span>
+        ) : (
+          <button className="link-btn warn" onClick={onOpenAccount}>
+            Saved on this device only — sync it
+          </button>
+        )}
         <button className="link-btn" onClick={() => exportLibrary(library)}>
           Back up
         </button>

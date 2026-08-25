@@ -1,8 +1,52 @@
+import type { SyncState } from '../lib/useLibrary'
+
 interface HeaderProps {
   theme: 'day' | 'night'
   onToggleTheme: () => void
   view: 'spin' | 'shelf'
   onNavigate: (v: 'spin' | 'shelf') => void
+  sync: SyncState
+  onOpenAccount: () => void
+}
+
+const SYNC_LABEL: Record<SyncState, string> = {
+  off: 'Saved on this device only',
+  signed_out: 'Saved on this device only — sign in to sync',
+  syncing: 'Saving…',
+  synced: 'Synced to the cloud',
+  error: "Couldn't reach the server — changes saved locally",
+}
+
+function SyncBadge({ sync, onClick }: { sync: SyncState; onClick: () => void }) {
+  return (
+    <button
+      className={`sync-badge s-${sync}`}
+      onClick={onClick}
+      aria-label={SYNC_LABEL[sync]}
+      title={SYNC_LABEL[sync]}
+    >
+      <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M6.8 18.5a4.3 4.3 0 0 1-.5-8.57 5.9 5.9 0 0 1 11.3-1.1 3.9 3.9 0 0 1 .1 7.75"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {sync === 'synced' && (
+          <path d="M9.4 15.4l1.9 1.9 3.6-3.9" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+        )}
+        {(sync === 'off' || sync === 'signed_out') && (
+          <path d="M9.6 17.2h5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+        )}
+        {sync === 'error' && (
+          <path d="M12 12.6v2.5M12 17.4v.1" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        )}
+      </svg>
+      {sync === 'syncing' && <span className="sync-pulse" aria-hidden="true" />}
+    </button>
+  )
 }
 
 function ThemeToggle({ theme, onToggle }: { theme: 'day' | 'night'; onToggle: () => void }) {
@@ -32,7 +76,7 @@ function ThemeToggle({ theme, onToggle }: { theme: 'day' | 'night'; onToggle: ()
   )
 }
 
-export function Header({ theme, onToggleTheme, view, onNavigate }: HeaderProps) {
+export function Header({ theme, onToggleTheme, view, onNavigate, sync, onOpenAccount }: HeaderProps) {
   return (
     <header className="header">
       <div className="nav-bar">
@@ -54,7 +98,10 @@ export function Header({ theme, onToggleTheme, view, onNavigate }: HeaderProps) 
           </button>
         </nav>
 
-        <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+        <div className="header-actions">
+          <SyncBadge sync={sync} onClick={onOpenAccount} />
+          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+        </div>
       </div>
     </header>
   )

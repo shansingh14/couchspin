@@ -411,6 +411,62 @@ a {
   box-shadow: inset 0 0 0 1px var(--glass-border);
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+.sync-badge {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--ink-3);
+  background: var(--glass-inset);
+  box-shadow: inset 0 0 0 1px var(--glass-border);
+  transition: color 0.2s;
+}
+
+.sync-badge:hover {
+  color: var(--ink);
+}
+
+.sync-badge.s-synced {
+  color: var(--olive);
+}
+
+[data-theme='night'] .sync-badge.s-synced {
+  color: #9fc07f;
+}
+
+.sync-badge.s-error {
+  color: var(--clay);
+}
+
+.sync-pulse {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1.5px var(--olive);
+  opacity: 0;
+  animation: sync-ping 1.5s ease-out infinite;
+}
+
+@keyframes sync-ping {
+  0% {
+    opacity: 0.75;
+    transform: scale(0.86);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.22);
+  }
+}
+
 .theme-toggle {
   flex: 0 0 auto;
   width: 36px;
@@ -1174,6 +1230,57 @@ a {
   height: 17px;
   accent-color: var(--olive);
   cursor: pointer;
+}
+
+/* account / sync sheet */
+
+.account-body {
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: var(--ink-2);
+  margin-top: 12px;
+}
+
+.account-body.subtle {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.account-body code {
+  font-size: 12.5px;
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: var(--glass-inset);
+  box-shadow: inset 0 0 0 1px var(--glass-border);
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.account-email {
+  resize: none;
+  border-radius: 999px;
+  padding: 13px 20px;
+}
+
+.btn-primary.full,
+.btn-ghost.full {
+  width: 100%;
+}
+
+.account-error {
+  margin-top: 14px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--clay);
+}
+
+.link-btn.warn {
+  color: var(--clay);
+  opacity: 1;
 }
 
 /* ——————————————— shelf ——————————————— */
