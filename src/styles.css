@@ -252,6 +252,72 @@ a {
   }
 }
 
+/* fireflies at dusk, sunlit dust by day */
+
+.fireflies {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+}
+
+[data-theme='night'] .fireflies {
+  opacity: 1;
+}
+
+.firefly {
+  position: absolute;
+  animation-name: ff-drift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.firefly i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  opacity: 0;
+  background: #fffdf0;
+  box-shadow: 0 0 5px 1px rgba(255, 250, 224, 0.65);
+  animation: ff-glow var(--glow) ease-in-out infinite;
+}
+
+[data-theme='night'] .firefly i {
+  background: #f2ffb4;
+  box-shadow:
+    0 0 6px 2px rgba(214, 255, 138, 0.55),
+    0 0 15px 5px rgba(182, 240, 104, 0.2);
+}
+
+@keyframes ff-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(var(--dx), calc(var(--dy) * -1));
+  }
+  50% {
+    transform: translate(calc(var(--dx) * -0.6), calc(var(--dy) * 0.8));
+  }
+  75% {
+    transform: translate(calc(var(--dx) * 0.4), calc(var(--dy) * 1.2));
+  }
+}
+
+@keyframes ff-glow {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.65);
+  }
+  50% {
+    opacity: var(--peak);
+    transform: scale(1);
+  }
+}
+
 .haze {
   position: absolute;
   inset: 0;
@@ -1456,13 +1522,32 @@ a {
     justify-content: center;
     overflow-x: visible;
     mask-image: none;
-    max-width: 620px;
+    max-width: 700px;
   }
 
   .shelf-filters {
     flex-direction: row;
     justify-content: center;
     gap: 20px;
+  }
+
+  /* mobile stays at 84vw; only wider screens get the roomier wheel */
+  .wheel-frame {
+    width: 440px;
+  }
+
+  .wheel-pointer {
+    margin-bottom: -18px;
+  }
+
+  .spin-phrase {
+    margin-top: 14px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .wheel-frame {
+    width: 470px;
   }
 }
 
@@ -1479,8 +1564,15 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .bokeh,
   .wheel-pointer.spinning,
-  .hub-dots i {
+  .hub-dots i,
+  .firefly,
+  .firefly i {
     animation: none;
+  }
+
+  /* hold the motes at a steady glow rather than pulsing them */
+  .firefly i {
+    opacity: 0.4;
   }
 
   .wheel-rotor {
