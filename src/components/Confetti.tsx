@@ -29,13 +29,17 @@ export function Confetti({ burst }: { burst: number }) {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    // clientWidth, not innerWidth: the latter includes a classic scrollbar,
+    // which would offset every particle from the visible centre
+    const vw = document.documentElement.clientWidth
+    const vh = document.documentElement.clientHeight
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
-    canvas.width = window.innerWidth * dpr
-    canvas.height = window.innerHeight * dpr
+    canvas.width = vw * dpr
+    canvas.height = vh * dpr
     ctx.scale(dpr, dpr)
 
-    const cx = window.innerWidth / 2
-    const cy = Math.min(window.innerHeight * 0.38, 420)
+    const cx = vw / 2
+    const cy = Math.min(vh * 0.38, 420)
     for (let i = 0; i < 44; i++) {
       const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.2
       const speed = 3 + Math.random() * 5.5
@@ -54,8 +58,8 @@ export function Confetti({ burst }: { burst: number }) {
     }
 
     const tick = () => {
-      const w = window.innerWidth
-      const h = window.innerHeight
+      const w = vw
+      const h = vh
       ctx.clearRect(0, 0, w, h)
       particles.current = particles.current.filter((p) => p.life > 0 && p.y < h + 20)
       for (const p of particles.current) {
