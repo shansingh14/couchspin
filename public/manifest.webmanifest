@@ -1,0 +1,17 @@
+{
+  "name": "CouchSpin",
+  "short_name": "CouchSpin",
+  "description": "A quiet way to decide what to watch tonight.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#dfe4de",
+  "theme_color": "#dfe4de",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
