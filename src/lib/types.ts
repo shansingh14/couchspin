@@ -14,6 +14,30 @@ export interface Title {
   /** number of seasons for a show */
   seasons?: number
   blurb: string
+  /**
+   * Pin a TMDB id when title matching picks the wrong film — remakes and common
+   * names are the usual offenders. `npm run enrich` reports what it guessed.
+   */
+  tmdb?: number
+  /** Filled in from enriched.json at module load; absent until `npm run enrich`. */
+  poster?: string | null
+}
+
+/**
+ * Facts fetched by `npm run enrich` and merged over the curated entry.
+ * Films and franchises come from TMDB, television from TVmaze.
+ * `poster` is a complete URL so the app needs no base-path knowledge.
+ */
+export interface Enrichment {
+  source: 'tmdb' | 'tvmaze'
+  sourceId: number
+  poster: string | null
+  year?: number
+  mins?: number
+  seasons?: number
+  endYear?: number
+  /** the provider's own title, kept so a bad match is auditable */
+  matchedName: string
 }
 
 export type Status = 'not_started' | 'watching' | 'watched'

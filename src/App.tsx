@@ -57,7 +57,9 @@ export default function App() {
       />
 
       <main className="main">
-        {view === 'spin' ? (
+        {/* SpinView stays mounted so the dealt wheel and your genre filters
+            survive a trip to the shelf; unmounting re-sampled both. */}
+        <div hidden={view !== 'spin'}>
           <SpinView
             category={category}
             onCategoryChange={setCategory}
@@ -65,7 +67,8 @@ export default function App() {
             onResult={handleResult}
             autoSpin={autoSpin}
           />
-        ) : (
+        </div>
+        {view === 'shelf' && (
           <Shelf
             library={library}
             onSetStatus={setStatus}

@@ -1,5 +1,6 @@
 import type { Entry, Status, Title } from '../lib/types'
 import { kindLabel, letterboxdUrl, metaLine } from '../lib/format'
+import { Poster } from './Poster'
 import { StarRating } from './StarRating'
 import { Sheet } from './Sheet'
 
@@ -24,10 +25,14 @@ export function TitleSheet({ title, entry, onClose, onUpdate }: TitleSheetProps)
     <Sheet open={!!title} onClose={onClose} label={`Details for ${title.name}`}>
       <div className="detail">
         <p className="kicker">{kindLabel(title)}</p>
-        <h2 className="detail-title">{title.name}</h2>
-        <p className="detail-meta">
-          {metaLine(title)} · {title.genres.join(', ')}
-        </p>
+        <div className="result-head">
+          <Poster title={title} size="lg" />
+          <div className="result-head-text">
+            <h2 className="detail-title">{title.name}</h2>
+            <p className="detail-meta">{metaLine(title)}</p>
+            <p className="result-genres">{title.genres.join(', ')}</p>
+          </div>
+        </div>
         <p className="detail-blurb">{title.blurb}</p>
 
         <div className="detail-section">

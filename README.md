@@ -9,6 +9,10 @@ Built because "what should we watch?" shouldn't cost forty minutes of scrolling.
 
 - **A wheel per category.** Films & series (franchises like LOTR, Rocky, or the MCU
   finale occupy one slot so the wheel doesn't fill with sequels) and Television.
+- **Ten slots at a time**, dealt from the filtered pool — never the whole catalogue,
+  which would be unreadable. Mark something watched and only *that* slot refills
+  from the pool; the other nine stay put, so one decision doesn't reshuffle the
+  choices you were still weighing. "Reshuffle the wheel" re-deals all ten.
 - **Filters.** Sixteen genres, plus an *Include rewatches* toggle. By default the
   wheel skips anything you've marked watched, so it always suggests something new.
 - **A shelf.** Every title carries a status (Not started / Partly / Watched), a
@@ -79,6 +83,46 @@ devices that edited *different* titles while offline both keep their changes rat
 than one overwriting the other wholesale. Pushes re-read the remote row and merge
 before writing, and the first sign-in on a device merges local and cloud in both
 directions, so connecting a phone that already has a shelf won't discard either side.
+
+## Where the title data comes from
+
+Two layers, deliberately.
+
+`src/data/titles.ts` is the **curated spine** — a hand-picked canon. It decides what
+is on the wheel, and owns the genres the filters run on and the one-line blurbs.
+This is editorial on purpose: a live "popular" feed would fill the wheel with
+whatever released last month, which is the opposite of what this app is for.
+
+`src/data/enriched.json` is **generated** by `npm run enrich` and merged over the
+top at module load. It only overwrites facts a database knows better than a person
+does — year, runtime, season count, poster art. Genres and blurbs are never touched.
+
+```bash
+npm run enrich
+```
+
+- **Television → TVmaze.** No API key, and it tracks season counts properly.
+- **Films and franchises → TMDB.** Needs a free key in `TMDB_API_KEY` (environment
+  or `.env.local`); get one instantly at
+  [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api). Without a
+  key the script still runs, does every show, and reports the films it skipped.
+
+The output is committed, so **the deployed app makes no API calls and needs no
+key** — posters come from the providers' public image CDNs.
+
+Why it exists: I originally wrote all the metadata from memory, and 12 of 80 season
+counts were wrong. Letterboxd would have been the natural source given the app links
+out to it, but [their API is request-only](https://letterboxd.com/api-beta/) with no
+self-service signup, and its OAuth2 client secret couldn't live in a browser bundle
+anyway — it would need a serverless proxy.
+
+The script prints anything worth a second look: weak title matches, and cases where
+a provider disagreed wildly with the curated data. That last check earns its keep —
+TVmaze dates Avatar: The Last Airbender as ending in 2026, and folds *El Camino* into
+Breaking Bad's run. When a provider's end year is implausible the curated run is kept
+instead. To force a specific film match, add `tmdb: <id>` to its entry; for titles
+filed under another name (Money Heist is *La Casa de Papel*), add an alias to
+`SEARCH_ALIASES` in the script.
 
 ## Adding titles
 

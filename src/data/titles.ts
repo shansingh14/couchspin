@@ -1,4 +1,5 @@
-import type { Title } from '../lib/types'
+import type { Enrichment, Title } from '../lib/types'
+import enrichedRaw from './enriched.json'
 
 // Seed catalog: the pop-culture canon — Letterboxd fan favorites, all-time
 // greats, and generation-defining TV. Franchises get a single wheel slot.
@@ -14,7 +15,7 @@ const show = (id: string, name: string, year: number, endYear: number | undefine
   id, name, kind: 'show', year, endYear, seasons, mins, genres, blurb,
 })
 
-export const TITLES: Title[] = [
+const CURATED: Title[] = [
   // ——— Sagas & trilogies (one slot each) ———
   saga('lotr', 'The Lord of the Rings', 2001, 2003, 3, ['Fantasy', 'Adventure'], 'One wheel to rule your whole weekend.'),
   saga('star-wars-ot', 'Star Wars: Original Trilogy', 1977, 1983, 3, ['Sci-Fi', 'Adventure'], "Lightsabers, twists, and the galaxy's favorite scoundrel."),
@@ -279,5 +280,26 @@ export const TITLES: Title[] = [
   show('big-bang-theory', 'The Big Bang Theory', 2007, 2019, 12, 22, ['Comedy'], "Bazinga. You know it even if you've never watched it."),
   show('greys-anatomy', "Grey's Anatomy", 2005, undefined, 21, 43, ['Drama', 'Romance'], "It's a beautiful day to save… 400 episodes."),
 ]
+
+const enriched = enrichedRaw as Record<string, Enrichment>
+
+/**
+ * The curated list is the spine — it decides what is on the wheel, and owns the
+ * genres the filters run on and the blurbs. Enrichment only overwrites facts a
+ * database knows better than I do: year, runtime, season count, artwork.
+ * Missing entries simply fall through to the curated values.
+ */
+export const TITLES: Title[] = CURATED.map((t) => {
+  const e = enriched[t.id]
+  if (!e) return t
+  return {
+    ...t,
+    year: e.year ?? t.year,
+    endYear: e.endYear ?? t.endYear,
+    mins: e.mins ?? t.mins,
+    seasons: e.seasons ?? t.seasons,
+    poster: e.poster,
+  }
+})
 
 export const byId = new Map(TITLES.map((t) => [t.id, t]))

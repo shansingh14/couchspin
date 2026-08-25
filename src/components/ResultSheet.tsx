@@ -1,5 +1,6 @@
 import type { Entry, Title } from '../lib/types'
 import { kindLabel, letterboxdUrl, metaLine } from '../lib/format'
+import { Poster } from './Poster'
 import { Sheet } from './Sheet'
 
 interface ResultSheetProps {
@@ -20,14 +21,18 @@ export function ResultSheet({ title, entry, onClose, onStartWatching, onSpinAgai
     <Sheet open={!!title} onClose={onClose} label={`Tonight's pick: ${title.name}`}>
       <div className="result">
         <p className="kicker">Tonight's pick</p>
-        <h2 className="result-title">{title.name}</h2>
-        <p className="result-meta">
-          <span className="meta-item">{kindLabel(title)}</span>
-          <span className="meta-sep" />
-          <span className="meta-item">{metaLine(title)}</span>
-          <span className="meta-sep" />
-          <span className="meta-item">{title.genres.join(', ')}</span>
-        </p>
+        <div className="result-head">
+          <Poster title={title} size="lg" />
+          <div className="result-head-text">
+            <h2 className="result-title">{title.name}</h2>
+            <p className="result-meta">
+              <span className="meta-item">{kindLabel(title)}</span>
+              <span className="meta-sep" />
+              <span className="meta-item">{metaLine(title)}</span>
+            </p>
+            <p className="result-genres">{title.genres.join(', ')}</p>
+          </div>
+        </div>
         <p className="result-blurb">{title.blurb}</p>
 
         <div className="result-actions">
