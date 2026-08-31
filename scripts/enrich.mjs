@@ -30,12 +30,18 @@ if (existsSync(envPath)) {
   }
 }
 
-const TMDB_KEY = process.env.TMDB_API_KEY
+// Accept either TMDB credential. The v3 "API Key" is a 32-char hex string sent
+// as a query param; the v4 "API Read Access Token" is a JWT sent as a Bearer
+// header. People grab whichever the settings page shows them first, so detect
+// rather than demand one.
+const TMDB_CRED = process.env.TMDB_API_KEY || process.env.TMDB_READ_TOKEN
+const TMDB_IS_TOKEN = !!TMDB_CRED && TMDB_CRED.startsWith('eyJ')
+const TMDB_KEY = TMDB_CRED
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
-async function getJSON(url, tries = 4) {
+async function getJSON(url, tries = 4, headers) {
   for (let i = 0; i < tries; i++) {
-    const res = await fetch(url)
+    const res = await fetch(url, headers ? { headers } : undefined)
     if (res.status === 429) {
       await sleep(1500 * (i + 1)) // providers ask callers to back off
       continue
@@ -147,11 +153,11 @@ async function enrichShow(entry) {
 
 async function tmdb(path, params = {}) {
   const url = new URL('https://api.themoviedb.org/3' + path)
-  url.searchParams.set('api_key', TMDB_KEY)
+  if (!TMDB_IS_TOKEN) url.searchParams.set('api_key', TMDB_KEY)
   for (const [k, v] of Object.entries(params)) {
     if (v !== undefined && v !== null && v !== '') url.searchParams.set(k, String(v))
   }
-  return getJSON(url.toString())
+  return getJSON(url.toString(), 4, TMDB_IS_TOKEN ? { Authorization: `Bearer ${TMDB_KEY}` } : undefined)
 }
 
 const POSTER = (p) => (p ? `https://image.tmdb.org/t/p/w342${p}` : null)
@@ -257,7 +263,11 @@ const films = entries.filter((e) => e.kind !== 'show')
 
 console.log(`Curated list: ${films.length} films/franchises, ${shows.length} shows.`)
 console.log(`TVmaze: no key needed.`)
-console.log(TMDB_KEY ? 'TMDB: key found.\n' : 'TMDB: no key — skipping films. Set TMDB_API_KEY to include them.\n')
+console.log(
+  TMDB_KEY
+    ? `TMDB: ${TMDB_IS_TOKEN ? 'read access token' : 'API key'} found.\n`
+    : 'TMDB: no credential — skipping films. Set TMDB_API_KEY to include them.\n'
+)
 
 // Keep any existing entries so a keyless run doesn't discard previous film data
 const outPath = resolve(root, 'src/data/enriched.json')

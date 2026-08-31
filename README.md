@@ -102,10 +102,12 @@ npm run enrich
 ```
 
 - **Television → TVmaze.** No API key, and it tracks season counts properly.
-- **Films and franchises → TMDB.** Needs a free key in `TMDB_API_KEY` (environment
-  or `.env.local`); get one instantly at
-  [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api). Without a
-  key the script still runs, does every show, and reports the films it skipped.
+- **Films and franchises → TMDB.** Needs a free credential in `TMDB_API_KEY`
+  (environment or `.env.local`); get one instantly at
+  [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api). Either
+  works — the short v3 **API Key** or the long v4 **API Read Access Token**; the
+  script detects which you pasted and authenticates accordingly. Without one it
+  still runs, does every show, and reports the films it skipped.
 
 The output is committed, so **the deployed app makes no API calls and needs no
 key** — posters come from the providers' public image CDNs.
