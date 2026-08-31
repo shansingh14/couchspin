@@ -21,6 +21,8 @@ export interface Title {
   tmdb?: number
   /** Filled in from enriched.json at module load; absent until `npm run enrich`. */
   poster?: string | null
+  /** True for TMDB overflow titles, which only appear once the canon thins out. */
+  fromReserve?: boolean
 }
 
 /**

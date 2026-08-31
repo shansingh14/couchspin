@@ -814,6 +814,10 @@ a {
   color: var(--ink-3);
 }
 
+.pool-topup {
+  color: var(--sand);
+}
+
 .reshuffle {
   color: var(--ink-2);
   transition: color 0.2s, transform 0.2s;

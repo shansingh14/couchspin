@@ -126,6 +126,32 @@ instead. To force a specific film match, add `tmdb: <id>` to its entry; for titl
 filed under another name (Money Heist is *La Casa de Papel*), add an alias to
 `SEARCH_ALIASES` in the script.
 
+## When the canon runs thin
+
+The curated list is finite, and genre filters can cut it to almost nothing —
+Horror holds 7 films, War holds 6. Rather than stranding you on an empty wheel,
+a reserve drawn from TMDB's top-rated lists tops the pool back up.
+
+```bash
+npm run reserve      # same TMDB credential as enrich
+```
+
+That writes `src/data/reserve.json` (~490 titles), skipping anything already
+curated so the canon never appears twice. It is **not** part of the main bundle:
+it lives in its own lazily-imported chunk (~53KB gzipped) that only downloads
+once a pool actually drops below 25 options. Most sessions never fetch it.
+
+The curated list always comes first, and the top-up is capped, so the wheel stays
+a canon-first experience rather than turning into a TMDB browser. When titles have
+been added this way the pool indicator says so — "80 in the pool · 74 topped up".
+
+Fetched at build time rather than from the browser deliberately: it keeps the TMDB
+credential out of the shipped JavaScript, costs no latency at spin time, and works
+offline.
+
+One gap worth knowing: TMDB's television genre list has no Horror category, so
+Horror + Television cannot be topped up. Films are unaffected.
+
 ## Adding titles
 
 `src/data/titles.ts` is a plain list. There are three helpers — `film()`, `saga()`,

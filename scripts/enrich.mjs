@@ -74,6 +74,17 @@ const SEARCH_ALIASES = {
   'money-heist': 'La Casa de Papel',
 }
 
+/**
+ * Exact provider ids for titles search can't reach. A film id for `film`
+ * entries, a collection id for `saga` entries.
+ *   wall-e         — "WALL·E" search returns Berlin Wall documentaries
+ *   before-trilogy — "Before" matches The Nightmare Before Christmas
+ */
+const TMDB_PINS = {
+  'wall-e': 10681,
+  'before-trilogy': 123800,
+}
+
 /** What actually goes to the provider: drop qualifiers, keep the words intact. */
 const searchQuery = (s) =>
   s
@@ -84,6 +95,21 @@ const searchQuery = (s) =>
     .trim()
 
 const queryFor = (entry) => searchQuery(SEARCH_ALIASES[entry.id] ?? entry.name)
+
+/**
+ * TMDB files franchises as "Rocky Collection", not "Rocky Saga" — and certainly
+ * not "Kill Bill Vol. 1 & 2". Strip our descriptive wrapper down to the bare
+ * franchise name before searching collections.
+ */
+const collectionQuery = (name) =>
+  name
+    .replace(/:\s*(Original Trilogy|Raimi Trilogy|Part One & Two|Infinity War \+ Endgame)/i, '')
+    .replace(/\s*\+\s*\d{3,4}.*$/, '')
+    .replace(/\s*Vol\.?\s*1\s*&\s*2\s*$/i, '')
+    .replace(/\s*\d\s*&\s*\d\s*$/, '')
+    .replace(/\s+(Saga|Trilogy|Collection)\s*$/i, '')
+    .replace(/\s+/g, ' ')
+    .trim()
 
 function titleScore(candidateName, candidateYear, wantName, wantYear) {
   let score = 0
@@ -210,9 +236,26 @@ async function enrichFilm(entry) {
 
 /** Franchises prefer TMDB collection artwork, falling back to the first film. */
 async function enrichSaga(entry) {
-  const data = await tmdb('/search/collection', { query: queryFor(entry) })
+  if (entry.pinned) {
+    const c = await tmdb(`/collection/${entry.pinned}`)
+    if (c) {
+      return {
+        rec: {
+          source: 'tmdb',
+          sourceId: c.id,
+          poster: POSTER(c.poster_path),
+          matchedName: c.name,
+        },
+        score: 999,
+      }
+    }
+  }
+  const want = collectionQuery(SEARCH_ALIASES[entry.id] ?? entry.name)
+  const data = await tmdb('/search/collection', { query: want })
   const best = (data?.results ?? [])
-    .map((r) => ({ r, s: titleScore(r.name, undefined, entry.name, undefined) }))
+    // TMDB collection names end in "Collection", so compare against the bare
+    // franchise name and let the startsWith rule carry it
+    .map((r) => ({ r, s: titleScore(r.name.replace(/\s+Collection$/i, ''), undefined, want, undefined) }))
     .sort((a, b) => b.s - a.s)[0]
 
   if (best && best.s >= 55 && best.r.poster_path) {
@@ -226,7 +269,7 @@ async function enrichSaga(entry) {
       score: best.s,
     }
   }
-  const film = await enrichFilm(entry)
+  const film = await enrichFilm({ ...entry, name: want })
   if (film) delete film.rec.mins // a franchise has no single runtime
   return film
 }
@@ -248,6 +291,10 @@ while ((m = re.exec(src))) {
 for (const pm of src.matchAll(/'([a-z0-9-]+)'[^\n]*tmdb:\s*(\d+)/g)) {
   const e = entries.find((x) => x.id === pm[1])
   if (e) e.pinned = Number(pm[2])
+}
+for (const [id, tmdbId] of Object.entries(TMDB_PINS)) {
+  const e = entries.find((x) => x.id === id)
+  if (e) e.pinned = tmdbId
 }
 
 // Curated end years, kept so an implausible provider value can be rejected

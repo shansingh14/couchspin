@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TITLES } from '../data/titles'
+import { loadReserve } from '../data/reserve'
 import type { Library, Title } from '../lib/types'
 import { GENRES } from '../lib/types'
 import { statusOf } from '../lib/storage'
@@ -11,6 +12,12 @@ export type Category = 'films' | 'tv'
 /** How many titles are on the wheel at once — enough to feel like a choice,
  *  few enough that the labels stay readable. */
 const SLOTS = 10
+
+/** Below this many curated options, start topping up from the TMDB reserve. */
+const TOPUP_BELOW = 25
+
+/** Ceiling on the topped-up pool, so the wheel stays a curated-first experience. */
+const TOPUP_TO = 80
 
 interface SpinViewProps {
   category: Category
@@ -34,14 +41,38 @@ export function SpinView({ category, onCategoryChange, library, onResult, autoSp
     })
   }
 
-  const pool = useMemo(() => {
-    return TITLES.filter((t) => {
+  const [reserve, setReserve] = useState<Title[] | null>(null)
+
+  const matches = useCallback(
+    (t: Title) => {
       if (category === 'films' ? t.kind === 'show' : t.kind !== 'show') return false
       if (genres.size > 0 && !t.genres.some((g) => genres.has(g))) return false
       if (!rewatch && statusOf(library, t.id) === 'watched') return false
       return true
+    },
+    [category, genres, rewatch, library]
+  )
+
+  const curatedPool = useMemo(() => TITLES.filter(matches), [matches])
+
+  // Fetch the overflow catalogue only once the canon has actually thinned —
+  // either watched through, or narrowed by a genre we hold few of.
+  useEffect(() => {
+    if (curatedPool.length >= TOPUP_BELOW || reserve) return
+    let alive = true
+    loadReserve().then((r) => {
+      if (alive) setReserve(r)
     })
-  }, [category, genres, rewatch, library])
+    return () => {
+      alive = false
+    }
+  }, [curatedPool.length, reserve])
+
+  const pool = useMemo(() => {
+    if (curatedPool.length >= TOPUP_BELOW || !reserve) return curatedPool
+    const topUp = reserve.filter(matches).slice(0, Math.max(0, TOPUP_TO - curatedPool.length))
+    return [...curatedPool, ...topUp]
+  }, [curatedPool, reserve, matches])
 
   const [slots, setSlots] = useState<Title[]>(() => sample(pool, SLOTS))
 
@@ -125,7 +156,12 @@ export function SpinView({ category, onCategoryChange, library, onResult, autoSp
         <>
           <Wheel titles={wheelTitles} onResult={onResult} autoSpin={autoSpin} />
           <div className="under-wheel">
-            <span className="pool-count">{pool.length} titles in the pool</span>
+            <span className="pool-count">
+              {pool.length} in the pool
+              {pool.length > curatedPool.length && (
+                <span className="pool-topup"> · {pool.length - curatedPool.length} topped up</span>
+              )}
+            </span>
             <button className="reshuffle" onClick={() => setNonce((n) => n + 1)}>
               Reshuffle the wheel
             </button>

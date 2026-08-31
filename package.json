@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "enrich": "node scripts/enrich.mjs"
+    "enrich": "node scripts/enrich.mjs",
+    "reserve": "node scripts/reserve.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.112.4",
