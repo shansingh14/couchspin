@@ -1028,20 +1028,20 @@ a {
   box-shadow: 0 2px 8px rgba(20, 26, 16, 0.26), inset 0 0 0 1px var(--glass-border);
 }
 
-.poster-blank {
+.poster-plate {
   display: grid;
   place-items: center;
   font-family: var(--font-display);
-  color: var(--ink-3);
-  background: linear-gradient(150deg, var(--glass-inset), transparent);
+  color: rgba(255, 252, 244, 0.92);
+  text-shadow: 0 1px 3px rgba(30, 34, 24, 0.35);
 }
 
-.poster-lg.poster-blank {
+.poster-lg.poster-plate {
   font-size: 30px;
 }
 
-.poster-sm.poster-blank {
-  font-size: 14px;
+.poster-sm.poster-plate {
+  font-size: 19px;
 }
 
 .result-head {
